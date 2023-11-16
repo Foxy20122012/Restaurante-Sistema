@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Permisos {
+  id          Int     @id @default(autoincrement())
+  modulo      String? @db.VarChar(100)
+  rol_id      Int?
+  descripcion String? @db.Text
+  Roles       Roles?  @relation(fields: [rol_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_Permisos_Roles")
+
+  @@index([rol_id], map: "fk_Permisos_Roles")
+}
+
+model Roles {
+  id          Int        @id @default(autoincrement())
+  nombre_rol  String?    @db.VarChar(50)
+  descripcion String?    @db.Text
+  Permisos    Permisos[]
+  Usuarios    Usuarios[]
+}
+
+model Usuarios {
+  id                 Int     @id @default(autoincrement())
+  nombre_usuario     String? @db.VarChar(50)
+  contrasena         String? @db.VarChar(255)
+  nombre_completo    String? @db.VarChar(255)
+  correo_electronico String? @db.VarChar(100)
+  rol_id             Int?
+  Roles              Roles?  @relation(fields: [rol_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_Usuarios_Roles")
+
+  @@index([rol_id], map: "fk_Usuarios_Roles")
+}
