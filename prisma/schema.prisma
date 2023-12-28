@@ -14,7 +14,7 @@ model Permisos {
   descripcion String? @db.Text
   Roles       Roles?  @relation(fields: [rol_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_Permisos_Roles")
 
-  @@index([rol_id], map: "fk_Permisos_Roles")
+  @@index([rol_id], map: "rol_id")
 }
 
 model Roles {
@@ -34,5 +34,61 @@ model Usuarios {
   rol_id             Int?
   Roles              Roles?  @relation(fields: [rol_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_Usuarios_Roles")
 
-  @@index([rol_id], map: "fk_Usuarios_Roles")
+  @@index([rol_id], map: "rol_id")
+}
+
+model product {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt
+  name        String   @db.VarChar(200)
+  description String?  @db.VarChar(200)
+  image       String?  @db.VarChar(200)
+  price       Decimal? @db.Decimal(10, 2)
+  createdAt   DateTime @default(now()) @db.Timestamp(0)
+}
+
+model Clientes {
+  id                 Int       @id @default(autoincrement())
+  nombre             String?   @db.VarChar(255)
+  direccion          String?   @db.VarChar(255)
+  telefono           String?   @db.VarChar(15)
+  correo_electronico String?   @db.VarChar(100)
+  fecha_registro     DateTime? @db.Date
+  historial_compras  String?   @db.Text
+}
+
+model Note {
+  id        Int       @id @default(autoincrement())
+  title     String?   @db.VarChar(255)
+  content   String?   @db.Text
+  createdAt DateTime? @default(now()) @db.DateTime(0)
+  updatedAt DateTime? @db.DateTime(0)
+}
+
+model Pedidos {
+  id              Int       @id @default(autoincrement())
+  cliente_id      Int?
+  fecha_pedido    DateTime? @db.Date
+  fecha_entrega   DateTime? @db.Date
+  estado_pedido   String?   @db.VarChar(50)
+  detalles_pedido String?   @db.Text
+}
+
+model ProductosTerminados {
+  id                 Int       @id @default(autoincrement())
+  nombre             String?   @db.VarChar(255)
+  tipo_dulce         String?   @db.VarChar(100)
+  cantidad_producida Int?
+  fecha_produccion   DateTime? @db.Date
+  precio_venta       Decimal?  @db.Decimal(10, 2)
+  descripcion        String?   @db.Text
+}
+
+model Ventas {
+  id            Int       @id @default(autoincrement())
+  cliente_id    Int?
+  monto_total   Decimal?  @db.Decimal(10, 2)
+  fecha_venta   DateTime? @db.Date
+  metodo_pago   String?   @db.VarChar(100)
+  estado_pedido String?   @db.VarChar(50)
+  descripcion   String?   @db.Text
 }

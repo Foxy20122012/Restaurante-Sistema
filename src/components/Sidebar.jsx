@@ -1,219 +1,196 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { XMarkIcon, ArrowLeftOnRectangleIcon, Bars3Icon, ChevronDownIcon } from '@heroicons/react/20/solid';
-import PropTypes from 'prop-types';
+'use client'
 
-const nest = function (items, idMenu = null, link = 'id_menu_padre') {
-  return items.filter(item => item[link] === idMenu).map(item => ({
-    ...item,
-    children: nest(items, item.id_menu).length > 0 ? nest(items, item.id_menu) : undefined
-  }));
-};
+import React, { useState } from 'react'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import Typography from '@mui/material/Typography'
+import { LuFiles } from 'react-icons/lu'
+import { HiOutlineUserGroup } from 'react-icons/hi'
+import { BsBoxSeam, BsFileEarmarkSpreadsheet } from 'react-icons/bs'
+import { IoIosArrowForward } from 'react-icons/io'
+import { GiPayMoney, GiMoneyStack, GiTakeMyMoney } from 'react-icons/gi'
+import { FiBox, FiArrowLeft } from 'react-icons/fi'
+import { PiNotePencilFill } from 'react-icons/pi'
+import { LiaMoneyBillSolid } from 'react-icons/lia'
+import { BiMoney } from 'react-icons/bi'
+import Collapse from '@mui/material/Collapse'
 
-const Sidebar = (props) => {
-  const {
-    sidebarOpen,
-    setSidebarOpen,
-    menu,
-    sidebarStyles,
-    optionStyles,
-    iconOptionStyles,
-    suboptionStyles,
-    iconSuboptionStyles,
-    onClickLogout,
-    appTitleStyles,
-    userInfoStyles
-  } = props;
+const Sidebar = () => {
+  const [inventoryOpen, setInventoryOpen] = useState(false) // Estado para controlar la apertura del submenú
+  const [ventasOpen, setVentasOpen] = useState(false) // Estado para controlar la apertura del submenú de Ventas
+  const [finanzasOpen, setFinanzasOpen] = useState(false) // Estado para controlar la apertura del submenú de Ventas
 
-  const trigger = useRef(null);
-  const sidebar = useRef(null);
-  const [options, setOptions] = useState([]);
-  const [isMobile, setIsMobile] = useState(false);
+  const handleFinanzasClick = () => {
+    setFinanzasOpen(!finanzasOpen)
+  }
 
-  useEffect(() => {
-    const clickHandler = ({ target }) => {
-      if (!sidebar.current || !trigger.current) return;
-      if (!sidebarOpen || sidebar.current.contains(target) || trigger.current.contains(target)) return;
-      setSidebarOpen(false);
-    };
+  const handleInventoryClick = () => {
+    setInventoryOpen(!inventoryOpen)
+  }
 
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
-  });
+  const handleVentasClick = () => {
+    setVentasOpen(!ventasOpen)
+  }
 
-  useEffect(() => {
-    const keyHandler = ({ keyCode }) => {
-      if (!sidebarOpen || keyCode !== 27) return;
-      setSidebarOpen(false);
-    };
-
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
-  });
-
-  useEffect(() => {
-    const menus = nest(menu);
-    setOptions(menus);
-  }, [menu]);
-
-  useEffect(() => {
-    registerBreakpoint();
-  }, []);
-
-  const registerBreakpoint = () => {
-    if (typeof document !== 'undefined') {
-      try {
-        // Your breakpoint registration logic here
-        // ...
-
-        const arrayEstadoMq = []; // Replace this line with your actual state retrieval logic
-
-        if (arrayEstadoMq.length && (arrayEstadoMq[0] === 'not-mobile' || arrayEstadoMq[0] === 'desktop')) {
-          setIsMobile(false);
-        } else {
-          setIsMobile(true);
-        }
-      } catch (e) {
-        console.error(`Error al registrar mq breackpoints - ${e.message}`);
-      }
+  const sidebarItems = [
+    {
+      text: 'Logos y Precios',
+      link: '/products',
+      icon: <GiTakeMyMoney className="m-3 text-xl font-bold" />
+    },
+    {
+      text: 'Productos',
+      link: '/home',
+      icon: <LuFiles className="m-3 text-xl font-bold" />
+    },
+    {
+      text: 'Pendientes',
+      link: '/nota',
+      icon: <PiNotePencilFill className="m-3 text-xl font-bold" />
+    },
+    {
+      text: 'Inventario',
+      icon: <BsBoxSeam className="m-3 text-xl font-bold" />,
+      onClick: handleInventoryClick
+    },
+    {
+      text: 'Clientes',
+      link: '/clientes',
+      icon: <HiOutlineUserGroup className="m-3 text-xl font-bold" />
+    },
+    {
+      text: 'Ventas',
+      icon: <GiMoneyStack className="m-3 text-xl font-bold" />,
+      onClick: handleVentasClick
+    },
+    {
+      text: 'Planilla',
+      link: '/planilla',
+      icon: <BsFileEarmarkSpreadsheet className="m-3 text-xl font-bold" />
+    },
+    {
+      text: 'Finanzas',
+      icon: <LiaMoneyBillSolid className="m-3 text-xl font-bold" />,
+      onClick: handleFinanzasClick
+    },
+    {
+      text: 'Cerrar Sesión',
+      link: '/api/auth/signout',
+      icon: <FiArrowLeft className="m-3  text-xl font-bold" />
     }
-  };
-
-  const getSidebarClass = () => {
-    let resultCss = '';
-
-    if (isMobile === true) {
-      resultCss = `flex flex-col z-60 top-1/3 h-4/6 overflow-y-auto w-full shrink-0 p-4 rounded-md duration-[400ms] ease-in-out
-        ${sidebarOpen ? 'translate-y-0 fixed' : 'transform translate-y-[100vh] fixed'}`;
-    } else {
-      resultCss = `flex flex-col z-40 left-0 top-0 h-screen overflow-y-auto w-64 shrink-0 p-4 transition-all duration-200 ease-in-out
-        ${sidebarOpen ? 'translate-x-0 relative' : '-translate-x-64 absolute'}`;
-    }
-
-    return resultCss;
-  };
-
-  const setSelected = (option) => {
-    const menus = options.slice();
-    const idx = menus.indexOf(option);
-    option.isSelected = option.isSelected ? !option.isSelected : true;
-    menus.splice(idx, 1, option);
-    setOptions(menus);
-
-    if (option.path && option.path !== null) {
-      // Your logic for setting title and navigating
-    }
-  };
-
-  const setSelectedSubOption = (option, suboption) => {
-    const menus = options.slice();
-    const idxOption = menus.indexOf(option);
-    const idxSubOption = option.children.indexOf(suboption);
-    suboption.isSelected = suboption.isSelected ? !suboption.isSelected : true;
-    option.children.splice(idxSubOption, 1, suboption);
-    setOptions(menus);
-    // Your logic for setting title and navigating
-  };
-
-  const SubMenuOption = ({ option }) => {
-    if (option.children && option.children.length > 0 && option.isSelected === true) {
-      return (
-        <ul id="dropdown-example" className="ml-1 py-1 space-y-1">
-          {option.children.map(suboption => {
-            if (suboption.type === 'divisor') {
-              return <li key={suboption.id_menu}><hr /></li>;
-            }
-
-            // Your logic for getting subMenu icons
-            const Icono = null; // Replace this line with your actual logic for getting icons
-
-            return (
-              <li
-                key={suboption.id_menu}
-                onClick={() => setSelectedSubOption(option, suboption)}
-                title={suboption.title}
-                className="cursor-pointer"
-              >
-                <div className={`flex items-center p-2 pl-3 w-full truncate overflow-hidden rounded-lg transition duration-75 group cursor-pointer ${Array.isArray(suboptionStyles) ? suboptionStyles.join(' ') : suboptionStyles} ${getFontSize(suboptionStyles)}`}
-                  title={suboption.title}
-                >
-                  {Icono && <Icono className={`h-7 w-7 text-white fill-current ${Array.isArray(iconSuboptionStyles) ? iconSuboptionStyles.join(' ') : iconSuboptionStyles}`} />}
-                  <div className="inline-flex truncate text-ellipsis">{suboption.title}</div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      );
-    }
-
-    return null;
-  };
-
-  const MenuOption = ({ option }) => {
-    // Your logic for getting Menu icons
-    const Icono = null; // Replace this line with your actual logic for getting icons
-
-    if (option.type === 'titulo') {
-      return (
-        <>
-          <button
-            type="button"
-            className={`flex items-center p-2 w-full rounded-lg transition duration-75 group ${Array.isArray(optionStyles) ? optionStyles.join(' ') : optionStyles} ${getFontSize(optionStyles)}`}
-            aria-controls="dropdown-example"
-            data-collapse-toggle="dropdown-example"
-            title={option.title}
-          >
-            <div className="flex-1 ml-3 text-left whitespace-nowrap truncate text-ellipsis">
-              {option.title}
-            </div>
-            {Icono && <Icono className={`h-7 w-7 text-white fill-current ${Array.isArray(iconOptionStyles) ? iconOptionStyles.join(' ') : iconOptionStyles}`} />}
-          </button>
-        </>
-      );
-    }
-
-    return (
-      <>
-        <button
-          type="button"
-          className={`flex items-center p-2 w-full rounded-lg transition duration-75 group ${Array.isArray(optionStyles) ? optionStyles.join(' ') : optionStyles} ${getFontSize(optionStyles)}`}
-          aria-controls="dropdown-example"
-          data-collapse-toggle="dropdown-example"
-          title={option.title}
-          onClick={() => setSelected(option)}
-        >
-          {Icono && <Icono className={`h-7 w-7 text-white fill-current ${Array.isArray(iconOptionStyles) ? iconOptionStyles.join(' ') : iconOptionStyles}`} />}
-          <div className="flex-1 ml-3 text-left whitespace-nowrap truncate text-ellipsis">
-            {option.title}
-          </div>
-          {option.children && option.children.length > 0 && <ChevronDownIcon className="h-6 w-6" />}
-        </button>
-        <SubMenuOption option={option} />
-      </>
-    );
-  };
+  ]
 
   return (
-    <>
-      <div
-        className={`fixed inset-0 bg-opacity-30 z-40 md:hidden md:z-auto transition-opacity duration-200 
-          ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'} ${Array.isArray(sidebarStyles) ? sidebarStyles.join(' ') : sidebarStyles}`}
-        aria-hidden="true"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
+    <div className="fixed left-0 top-0 z-10 flex h-screen w-60 flex-col items-center bg-white py-6 shadow-md">
+      <Typography
+        variant="h6"
+        sx={{
+          mt: '1rem',
+          mb: '2rem',
+          fontWeight: 'bold',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          maxWidth: '80%'
+        }}
       />
-      <div
-        id="sidebar"
-        ref={sidebar}
-        className={`${getSidebarClass()} ${Array.isArray(sidebarStyles) ? sidebarStyles.join(' ') : sidebarStyles}`}
-      >
-        {/* Rest of your Sidebar component */}
-      </div>
-    </>
-  );
-};
+      <List sx={{ width: '100%' }}>
+        {sidebarItems.map((item) => (
+          <div key={item.text}>
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href={item.link}
+                onClick={item.onClick}
+              >
+                {item.icon}
+                <ListItemText
+                  primary={item.text}
+                  sx={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    maxWidth: '100%'
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+            {/* Renderizar el submenú si el botón de Inventario se ha hecho clic */}
+            {item.text === 'Inventario' && (
+              <Collapse in={inventoryOpen}>
+                {/* Agrega tus opciones de submenú aquí */}
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton component="a" href="/materiasPrimas">
+                      <BsBoxSeam className="m-3 text-xl font-bold" />
+                      Materias Primas
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton component="a" href="/salidasMateriasPrimas">
+                      <IoIosArrowForward className="m-3 text-xl font-bold" />
+                      Entradas y Salidas de Materia Prima
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton component="a" href="/productosTerminados">
+                      <FiBox className="m-3 text-xl font-bold" />
+                      Productos Terminados
+                    </ListItemButton>
+                  </ListItem>
+                  {/* Puedes agregar más opciones de submenú según sea necesario */}
+                </List>
+              </Collapse>
+            )}
 
-Sidebar.propTypes = {
-  // Your prop types
-};
+            {item.text === 'Finanzas' && (
+              <Collapse in={finanzasOpen}>
+                {/* Agrega tus opciones de submenú aquí */}
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton component="a" href="/costosProduccion">
+                      <BiMoney className="m-3 text-xl font-bold" />
+                      Costos Producción
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton component="a" href="/cuentasBancarias">
+                      <BiMoney className="m-3 text-xl font-bold" />
+                      Cuentas Bancarias
+                    </ListItemButton>
+                  </ListItem>
+                  {/* Puedes agregar más opciones de submenú según sea necesario */}
+                </List>
+              </Collapse>
+            )}
+            {/* Renderizar el submenú de Ventas si el botón de Ventas se ha hecho clic */}
+            {item.text === 'Ventas' && (
+              <Collapse in={ventasOpen}>
+                {/* Agrega tus opciones de submenú de Ventas aquí */}
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton component="a" href="/ventas">
+                      <GiPayMoney className="m-3 text-xl font-bold" />
+                      Ventas
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton component="a" href="/pedidos">
+                      <FiBox className="m-3 text-xl font-bold" />
+                      Pedidos
+                    </ListItemButton>
+                  </ListItem>
+                  {/* Puedes agregar más opciones de submenú de Ventas según sea necesario */}
+                </List>
+              </Collapse>
+            )}
+          </div>
+        ))}
+      </List>
+    </div>
+  )
+}
 
-export default Sidebar;
+export default Sidebar

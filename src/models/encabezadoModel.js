@@ -4,10 +4,11 @@ const fetchedHeaders = () => {
     return [
       { text: "ID", value: "id" },
       { text: "Nombre del Platillo", value: "nombre" },
-      { text: "Precio (USD)", value: "precio" },
-      { text: "Descripción", value: "descripcion" },
-      { text: "Categoría", value: "categoria" },
-      { text: "Disponibilidad", value: "disponibilidad" },
+      { text: "Dirección", value: "direccion" },
+      { text: "Telefono", value: "telefono" },
+      { text: "correo_electronico", value: "correo_electronico" },
+      { text: "fecha_registro", value: "fecha_registro" },
+      { text: "historial_compras ", value: "historial_compras " },
       // Puedes agregar más cabeceras según tus necesidades
     ];
   };
