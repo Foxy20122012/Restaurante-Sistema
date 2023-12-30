@@ -11,12 +11,13 @@ import { ToastContainer } from 'react-toastify';
 import I18nProvider from '../plugins/i18nContext'
 import BtnAppBar from '../components/appBar'
 import 'vComponents/styles/generated/output.css'
-import 'vComponents/styles/generated/bgColors.min.css'
-import 'vComponents/styles/generated/textColorBase.min.css'
-import 'vComponents/styles/globals.css'
-import 'vComponents/styles/generated/grid.min.css'
-import 'vComponents/styles/generated/border.min.css'
+// import 'vComponents/styles/generated/bgColors.min.css'
+// import 'vComponents/styles/generated/textColorBase.min.css'
+// import 'vComponents/styles/globals.css'
+// import 'vComponents/styles/generated/grid.min.css'
+// import 'vComponents/styles/generated/border.min.css'
 import Footer from "../components/Footer";
+// import 'vComponents/styles/globals.css'
 
 // const Footer = dynamic(() => import('vComponents/dist/Footer'), { ssr: false });
 const Navbar = dynamic(() => import('vComponents/dist/Navbar'), { ssr: false });

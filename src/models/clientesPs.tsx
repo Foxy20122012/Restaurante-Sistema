@@ -1,10 +1,5 @@
 const clientesProps = [
-  {
-    label: "ID",
-    name: "id",
-    type: "number",
-    readOnly: true, // El campo ID generalmente es de solo lectura
-  },
+
   {
     label: "Nombre",
     name: "nombre",
@@ -32,13 +27,6 @@ const clientesProps = [
     name: "correo_electronico",
     type: "email", // Utiliza el tipo "email" para direcciones de correo electrónico
     required: true,
-  },
-  {
-    label: "Fecha de Registro",
-    name: "fecha_registro",
-    type: "date", // Utiliza el tipo "date" para fechas
-    // required: true,
-    readOnly: true, 
   },
   {
     label: "Historial de Compras",

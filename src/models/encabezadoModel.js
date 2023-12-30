@@ -7,8 +7,7 @@ const fetchedHeaders = () => {
       { text: "Dirección", value: "direccion" },
       { text: "Telefono", value: "telefono" },
       { text: "correo_electronico", value: "correo_electronico" },
-      { text: "fecha_registro", value: "fecha_registro" },
-      { text: "historial_compras ", value: "historial_compras " },
+      { text: "historial_compras ", value: "historial_compras" },
       // Puedes agregar más cabeceras según tus necesidades
     ];
   };
