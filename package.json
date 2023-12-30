@@ -9,8 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@mui/material": "^5.15.2",
     "@prisma/client": "^5.5.2",
     "@react-pdf-viewer/core": "^3.12.0",
     "alasql": "^4.2.2",
