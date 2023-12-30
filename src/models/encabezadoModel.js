@@ -3,7 +3,7 @@
 const fetchedHeaders = () => {
     return [
       { text: "ID", value: "id" },
-      { text: "Nombre del Platillo", value: "nombre" },
+      { text: "Nombre del Cliente", value: "nombre" },
       { text: "Dirección", value: "direccion" },
       { text: "Telefono", value: "telefono" },
       { text: "correo_electronico", value: "correo_electronico" },

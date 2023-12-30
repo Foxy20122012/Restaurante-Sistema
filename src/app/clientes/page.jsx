@@ -21,6 +21,8 @@ import { clientesColumns } from "../../models/clientesMls";
 import { transformClientesToRows } from "../../models/clientesMls";
 import clienteModel from "../../models/clientes/clienteModel";
 import clientesProps from "../../models/clientesPs";
+import Modals from "../../components/Modals";
+import SuccessModal from "../../components/SuccessModal";
 // import tabContent from "../../models/clientesPs"
 
 
@@ -28,7 +30,7 @@ import clientesProps from "../../models/clientesPs";
 const DataTable = dynamic(() => import("vComponents/dist/DataTable"), { ssr: false });
 const Stepper = dynamic(() => import("vComponents/dist/Stepper"), { ssr: false });
 const YesNoQuestion = dynamic(() => { return import("vComponents/dist/YesNoQuestion") }, { ssr: false })
-
+const Modal = dynamic(() => { return import("vComponents/dist/Modal") }, { ssr: false })
 const DataForm = dynamic(() => { return import("vComponents/dist/DataForm") }, { ssr: false })
 const VDialog = dynamic(() => { return import("vComponents/dist/VDialog") }, { ssr: false })
 // const VistaConsulta = dynamic(() => { return import("vComponents/dist/VistaConsulta") }, { ssr: false })
@@ -60,8 +62,16 @@ const HomePage = () => {
   const [isDeleteSuccess, setIsDeleteSuccess] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpen2, setIsOpen2] = useState(false)
+  const [yesNoOpen, setYesNoOpen] = useState(false)
   const rowsClientes = transformClientesToRows(clientes); // Asegúrate de tener definida la función transformClientesToRows y la variable clientes.
   const [model, setModel] = useState(clienteModel()) 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
+
 
   useEffect(() => {
     loadClientes();
@@ -93,6 +103,10 @@ const HomePage = () => {
   const handleDelete = (cliente) => {
     openDeleteModal(cliente);
   };
+  // const deleteItem = (item) => {
+  //   setModel(item)
+  //   setYesNoOpen(true)
+  // }
 
   const handleNewClick = () => {
     setSelectedCliente(null);
@@ -142,6 +156,18 @@ const HomePage = () => {
   }, []); // Dependencias vacías para que se ejecute una vez al montar el componente
 
   
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteCliente(clientToDelete.id); // Suponiendo que el cliente tiene una propiedad 'id'
+      setIsDeleteSuccess(true); // Puedes manejar esto según tus necesidades
+      setIsDeleteModalOpen(false);
+      loadClientes(); // Vuelve a cargar los clientes después de eliminar uno
+    } catch (error) {
+      console.error("Error al eliminar el cliente:", error);
+      setIsDeleteSuccess(false); // Opcional: manejar el caso de fallo en la eliminación
+    }
+  };
+  
   if (!hasMounted) {
     return <Loading/>; //<Loadig />
   }
@@ -174,11 +200,68 @@ const HomePage = () => {
             onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
             columns={2}
           />
+            <div className="flex justify-end mt-4">
+    <button
+      onClick={() => setIsFormVisible(false)} // Cierra el modal o dialogo
+      className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+    >
+      Cancelar
+    </button>
+  </div>
       </VDialog>
       }
+        <Modals
+          isOpen={isDeleteModalOpen}
+          title="Confirmar Eliminación"
+          message={`¿Estás seguro de que deseas eliminar al cliente ${clientToDelete?.nombre}?`}
+          onConfirm={async () => {
+            try {
+              if (clientToDelete) {
+                await deleteCliente(clientToDelete.id);
+                closeDeleteModal();
+                setIsDeleteSuccess(true);
+                loadClientes();
+              }
+            } catch (error) {
+              console.error("Error al eliminar el cliente:", error);
+            }
+          }}
+          onCancel={closeDeleteModal}
+          // @ts-ignore
+          onUpdate={handleUpdateClick}
+          showUpdateButton={false}
+          showConfirmButton={true} // Configura según tus necesidades
+        />
+        <SuccessModal
+          isOpen={isDeleteSuccess}
+          onClose={() => setIsDeleteSuccess(false)}
+          message="El cliente se ha eliminado correctamente."
+          buttonText="Aceptar"
+        />
+
       <Stepper steps={["Paso 1", "Paso 2", "Paso 3", "paso 4"]} />
       {/* <VistaConsulta data={items} headers={headers} /> */}
       
+      <div className="bg-cyan-200">
+      <button onClick={() => setIsModalVisible(true)}>Mostrar Modal</button>
+
+      <Modal
+        isVisible={isModalVisible}
+        onClose={handleCloseModal}
+        size="pequeño"
+        no_proyecto="Proyecto 123"
+        nombre_titulo="Título del Modal"
+        showClose={true}
+        title={<h2>Título Personalizado</h2>}
+        closeOnEscape={true}
+        headerTextClass="text-red-500"
+        headerClass="bg-blue-500"
+        childCardClass="p-6"
+      >
+        {/* Aquí puedes colocar el contenido que desees dentro del modal */}
+        <p>Contenido del modal...</p>
+      </Modal>
+    </div>
     
 
       {/* Resto del código */}

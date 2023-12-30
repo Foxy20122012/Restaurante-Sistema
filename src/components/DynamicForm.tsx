@@ -70,7 +70,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
     <form className={`max-w-md mx-auto grid grid-cols-${columns}`} onSubmit={handleSubmit}>
       {formProps.map((field) => (
         <div key={field.name} className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">{field.label}</label>
+          <label className="block text-gray-700 text-base  font-bold mb-2">{field.label}</label>
           <div className="mx-2">
             {field.type === 'select' ? (
               <select
