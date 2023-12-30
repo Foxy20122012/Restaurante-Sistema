@@ -12,7 +12,7 @@ function ProductCard({ product }) {
           {product.name}
         </h1>
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-2xl text-slate-600">${product.price.toFixed(2)}</h2>
+          <h2 className="text-2xl text-slate-600">{product.price}</h2>
         </div>
         <p className="mb-2 font-normal text-gray-700 two-lines-ellipsis">
           {product.description}

@@ -42,7 +42,7 @@ model product {
   name        String   @db.VarChar(200)
   description String?  @db.VarChar(200)
   image       String?  @db.VarChar(200)
-  price       Decimal? @db.Decimal(10, 2)
+  price       String?  @db.VarChar(50)
   createdAt   DateTime @default(now()) @db.Timestamp(0)
 }
 

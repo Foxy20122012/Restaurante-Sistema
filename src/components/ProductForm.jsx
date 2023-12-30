@@ -75,7 +75,7 @@ function ProductForm() {
           htmlFor="name"
           className="block text-gray-700 text-sm font-bold mb-2"
         >
-          Product Name:
+          Modelo Del Vehiculo:
         </label>
         <input
           name="name"
@@ -91,12 +91,12 @@ function ProductForm() {
           htmlFor="price"
           className="block text-gray-700 text-sm font-bold mb-2"
         >
-          Product Price:
+          Numero De La Placa Del Vehiculo:
         </label>
         <input
           name="price"
           type="text"
-          placeholder="00.00"
+          placeholder="Numero de matricula"
           onChange={handleChange}
           value={product.price}
           className="shadow appearance-none border rounded w-full py-2 px-3"
@@ -106,7 +106,7 @@ function ProductForm() {
           htmlFor="name"
           className="block text-gray-700 text-sm font-bold mb-2"
         >
-          Product Description:
+          Descripción Del Vehiculo:
         </label>
         <textarea
           name="description"
@@ -121,7 +121,7 @@ function ProductForm() {
           htmlFor="productImage"
           className="block text-gray-700 text-sm font-bold mb-2"
         >
-          Product Image:
+          Imagen Del Vehiculo:
         </label>
         <input
           type="file"

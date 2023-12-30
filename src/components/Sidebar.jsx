@@ -36,8 +36,8 @@ const Sidebar = () => {
 
   const sidebarItems = [
     {
-      text: 'Logos y Precios',
-      link: '/products',
+      text: 'Vehiculos',
+      link: '/vehiculos',
       icon: <GiTakeMyMoney className="m-3 text-xl font-bold" />
     },
     {

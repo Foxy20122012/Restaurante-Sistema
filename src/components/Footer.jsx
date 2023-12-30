@@ -10,7 +10,7 @@ Footer.propTypes = {
 export default function Footer ({ version = '1.0.1', imageUrl = 'Cacao.jpeg', label = 'Versión' }) {
   return (
     <>
-    Clientes
+   
     <footer className='fixed bottom-0 z-50 w-full bg-white  shadow-inner rounded-t-md '>
       <div className='px-4 sm:px-6 lg:px-8'>
         <div className='flex items-center justify-between h-9 -mb-px'>

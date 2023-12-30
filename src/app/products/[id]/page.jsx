@@ -29,7 +29,7 @@ async function ProductPage({ params }) {
               {product.name}
             </h3>
             <h4 className="text-3xl md:text-5xl font-extrabold text-blue-500">
-              ${product.price.toFixed(2)}
+              {product.price}
             </h4>
             <p className="text-gray-600 my-2 md:mb-6">{product.description}</p>
             <Buttons productId={product.id} />

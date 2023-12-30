@@ -11,7 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import I18nProvider from '../plugins/i18nContext'
 import BtnAppBar from '../components/appBar'
 import 'vComponents/styles/generated/output.css'
-// import 'vComponents/styles/generated/bgColors.min.css'
+import 'vComponents/styles/generated/bgColors.min.css'
 // import 'vComponents/styles/generated/textColorBase.min.css'
 // import 'vComponents/styles/globals.css'
 // import 'vComponents/styles/generated/grid.min.css'
