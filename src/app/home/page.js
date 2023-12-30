@@ -12,7 +12,7 @@ import useI18n from '../../hooks/useI18n'
 import BtnAppBar from "../../components/appBar"
 import Loading from "../../components/loading"
 // import DataTable from "vComponents/dist/DataTable"
-import BtnAppBar from '../../components/appBar';
+// import BtnAppBar from '../../components/appBar';
 
 
 // Importa el componente DataTable de forma dinámica
