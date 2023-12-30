@@ -46,7 +46,7 @@ const columns = Object.keys(clientesColumns).map((key) => ({
 
 
 // Define el componente principal
-const HomePage = () => {
+const ClientesPage = () => {
   const {
     clientes,
     createCliente,
@@ -176,7 +176,9 @@ const HomePage = () => {
     <>
     <BtnAppBar/>
     <div className="mt-20 ml-12">
-      
+      <div className="my-2 uppercase font-bold text-base">
+      Clientes
+      </div>
       {/* Pasa las cabeceras y elementos al componente DataTable */}
       <DataTable headers={headers} items={rowsClientes}  presets={presets} i18n={i18n}
        onNewItem={handleNewClick}
@@ -272,4 +274,4 @@ const HomePage = () => {
 };
 
 // Exporta el componente principal
-export default HomePage;
+export default ClientesPage;

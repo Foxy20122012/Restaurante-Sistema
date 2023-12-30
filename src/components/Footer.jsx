@@ -9,12 +9,14 @@ Footer.propTypes = {
 // From https://reactjs.org/docs/hooks-state.html
 export default function Footer ({ version = '1.0.1', imageUrl = 'Cacao.jpeg', label = 'Versión' }) {
   return (
+    <>
+    Clientes
     <footer className='fixed bottom-0 z-50 w-full bg-white  shadow-inner rounded-t-md '>
       <div className='px-4 sm:px-6 lg:px-8'>
         <div className='flex items-center justify-between h-9 -mb-px'>
           {/* Header: Left side */}
           <div className='flex'>
-            <span>® Powered By CACAO Bytes, S. A.</span>
+            <span>® Powered By Enrique Merlos, S. A.</span>
           </div>
           {/* Header: Right side */}
           <div className='flex items-center'>
@@ -30,5 +32,6 @@ export default function Footer ({ version = '1.0.1', imageUrl = 'Cacao.jpeg', la
         </div>
       </div>
     </footer>
+    </>
   )
 }
