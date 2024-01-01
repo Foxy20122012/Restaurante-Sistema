@@ -41,7 +41,7 @@ function Buttons({ productId }) {
 
       {/* Botón para editar */}
       <button
-        className="text-white bg-gray-500 hover:bg-gray-700 py-2 px-3 rounded"
+        className="text-white bg-green-500 hover:bg-green-700 py-2 px-3 rounded"
         onClick={() => setIsEditDialogVisible(true)} // Mostrar el diálogo al hacer clic
       >
         Edit
@@ -59,13 +59,13 @@ function Buttons({ productId }) {
             <div className="flex justify-end mt-4">
               <button
                 onClick={() => setIsEditDialogVisible(false)}
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2"
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
               >
                 Cancel
               </button>
               <button
                 onClick={handleEdit}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
               >
                 Confirm
               </button>
@@ -86,13 +86,13 @@ function Buttons({ productId }) {
             <div className="flex justify-end mt-4">
               <button
                 onClick={() => setIsDeleteDialogVisible(false)}
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2"
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
               >
                 Cancel
               </button>
               <button
                 onClick={handleDelete}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
               >
                 Confirm
               </button>

@@ -4,9 +4,9 @@ const presets = {
   theme: `${theme}`,
   appTitle: 'Restaurant ERP',
   images: {
-    logo: 'novaStudio.jpeg',
-    loginFondo: 'nova.jpeg',
-    welcomeFondo: 'nova.jpeg',
+    logo: 'https://img.freepik.com/vector-premium/logo-perfecto-empresa-relacionada-industria-transporte-carga_225174-92.jpg',
+    loginFondo: 'https://img.freepik.com/vector-premium/logo-perfecto-empresa-relacionada-industria-transporte-carga_225174-92.jpg',
+    welcomeFondo: 'https://img.freepik.com/vector-premium/logo-perfecto-empresa-relacionada-industria-transporte-carga_225174-92.jpg',
   },
   locations: {
     login: '/login',

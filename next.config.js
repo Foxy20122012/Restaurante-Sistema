@@ -17,7 +17,7 @@ const combinedConfig = {
     ...constants
   },
   images: {
-    domains: ['www.via-asesores.com', 'gt.via-asesores.com'],
+    domains: ['www.via-asesores.com', 'gt.via-asesores.com', 'qa.via-asesores.com'],
     unoptimized: true, // solo para generar sitio estático
   },
   assetPrefix: constants.publicPath || '', // Si 'publicPath' no está definido, se establece como cadena vacía

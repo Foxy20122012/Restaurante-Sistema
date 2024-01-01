@@ -1,10 +1,26 @@
 {
-  "name": "restaurant",
-  "version": "0.1.0",
+  "name": "smartoperation",
+  "version": "3.0.1",
+  "description": "Administración y Control de Operaciones, Rutas de visitas, ventas, despacho",
+  "repository": {
+    "type": "git",
+    "url": "https://git.via-asesores.com/administrador/smartoperation.git"
+  },
+  "keywords": [
+    "operations",
+    "orbis",
+    "smart",
+    "route",
+    "sales",
+    "delivery"
+  ],
+  "author": "guatemala@via-asesores.com",
+  "license": "ISC",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "generate": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },

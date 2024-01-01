@@ -3,12 +3,12 @@ export { default } from 'next-auth/middleware'
 export const config = {
 
   matcher: [
+    '/',
+    '/products',
     '/nota',
-    '/materiaPrima',
-    '/salidasMateriasPrimas',
     '/clientes',
-    '/ventas',
-    '/pedidos',
-    '/planilla'
+    '/newProduct',
+    '/vehiculos',
+    '/home',
   ]
 }

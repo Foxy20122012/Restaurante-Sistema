@@ -143,6 +143,14 @@ const RegisterForm = () => {
             backgroundSize: "cover",
           }}
         />
+{/* <Image 
+    src="https://img.freepik.com/vector-premium/logo-perfecto-empresa-relacionada-industria-transporte-carga_225174-92.jpg"
+    width={300}   // Estableciendo el ancho en 300 píxeles como un valor numérico
+    height={200}  // Estableciendo la altura en 200 píxeles como un valor numérico
+    alt="Descripción de la imagen"  // Asegúrate de proporcionar un texto alternativo para la accesibilidad
+/> */}
+
+
       </div>
     </>
   );

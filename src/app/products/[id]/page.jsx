@@ -1,5 +1,6 @@
 import Buttons from "./Buttons";
 import { conn } from "../../../libs/mysql";
+import BtnAppBar from '../../../components/appBar'
 // import Navbar from "../../../components/Navbar"
 
 async function loadProduct(productId) {
@@ -14,8 +15,11 @@ async function ProductPage({ params }) {
 
   return (
     <>
+    <BtnAppBar />
+    <div className=" relative my-28 mx-20 m-10">
       {/* <Navbar /> */}
-      <section className="flex justify-center items-center h-screen bg-gradient-to-r from-teal-500 to-cyan-500">
+      <section className="flex justify-center  items-center h-screen bg-gradient-to-r from-teal-500 to-cyan-500">
+        <div className="relative ">
         <div className="flex flex-col md:flex-row w-11/12 max-w-4xl bg-white rounded-lg overflow-hidden shadow-xl">
           <div className="w-full md:w-2/3">
             <img
@@ -25,17 +29,19 @@ async function ProductPage({ params }) {
             />
           </div>
           <div className="w-full md:w-1/3 p-4 md:p-8">
-            <h3 className="text-2xl md:text-4xl font-extrabold mb-2 md:mb-4 text-gray-800">
+            <h3 className="text-2xl uppercase md:text-4xl font-extrabold mb-2 md:mb-4 text-gray-800">
               {product.name}
             </h3>
-            <h4 className="text-3xl md:text-5xl font-extrabold text-blue-500">
+            <h4 className="text-xl uppercase md:text-4xl font-bold text-green-500 hover:text-green-600">
               {product.price}
             </h4>
-            <p className="text-gray-600 my-2 md:mb-6">{product.description}</p>
+            <p className="text-gray-600 my-2 md:mb-6 uppercase">{product.description}</p>
             <Buttons productId={product.id} />
           </div>
         </div>
+        </div>
       </section>
+      </div>
     </>
   );
 }

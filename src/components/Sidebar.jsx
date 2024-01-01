@@ -12,7 +12,7 @@ import { BsBoxSeam, BsFileEarmarkSpreadsheet } from 'react-icons/bs'
 import { IoIosArrowForward } from 'react-icons/io'
 import { GiPayMoney, GiMoneyStack, GiTakeMyMoney } from 'react-icons/gi'
 import { FiBox, FiArrowLeft } from 'react-icons/fi'
-import { PiNotePencilFill } from 'react-icons/pi'
+import { PiNotePencilFill, PiTruckDuotone  } from 'react-icons/pi'
 import { LiaMoneyBillSolid } from 'react-icons/lia'
 import { BiMoney } from 'react-icons/bi'
 import Collapse from '@mui/material/Collapse'
@@ -35,46 +35,51 @@ const Sidebar = () => {
   }
 
   const sidebarItems = [
-    {
-      text: 'Vehiculos',
-      link: '/vehiculos',
-      icon: <GiTakeMyMoney className="m-3 text-xl font-bold" />
-    },
-    {
-      text: 'Productos',
+ {
+      text: 'Gestión de Reportes de Viajes',
       link: '/home',
       icon: <LuFiles className="m-3 text-xl font-bold" />
     },
+    {
+      text: 'Vehiculos',
+      link: '/products',
+      icon: <PiTruckDuotone  className="m-3 text-xl font-bold" />
+    },
+    // {
+    //   text: 'Productos',
+    //   link: '/home',
+    //   icon: <LuFiles className="m-3 text-xl font-bold" />
+    // },
     {
       text: 'Pendientes',
       link: '/nota',
       icon: <PiNotePencilFill className="m-3 text-xl font-bold" />
     },
-    {
-      text: 'Inventario',
-      icon: <BsBoxSeam className="m-3 text-xl font-bold" />,
-      onClick: handleInventoryClick
-    },
+    // {
+    //   text: 'Inventario',
+    //   icon: <BsBoxSeam className="m-3 text-xl font-bold" />,
+    //   onClick: handleInventoryClick
+    // },
     {
       text: 'Clientes',
       link: '/clientes',
       icon: <HiOutlineUserGroup className="m-3 text-xl font-bold" />
     },
-    {
-      text: 'Ventas',
-      icon: <GiMoneyStack className="m-3 text-xl font-bold" />,
-      onClick: handleVentasClick
-    },
+    // {
+    //   text: 'Ventas',
+    //   icon: <GiMoneyStack className="m-3 text-xl font-bold" />,
+    //   onClick: handleVentasClick
+    // },
     {
       text: 'Planilla',
       link: '/planilla',
       icon: <BsFileEarmarkSpreadsheet className="m-3 text-xl font-bold" />
     },
-    {
-      text: 'Finanzas',
-      icon: <LiaMoneyBillSolid className="m-3 text-xl font-bold" />,
-      onClick: handleFinanzasClick
-    },
+    // {
+    //   text: 'Finanzas',
+    //   icon: <LiaMoneyBillSolid className="m-3 text-xl font-bold" />,
+    //   onClick: handleFinanzasClick
+    // },
     {
       text: 'Cerrar Sesión',
       link: '/api/auth/signout',

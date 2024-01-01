@@ -2,15 +2,19 @@
 
 // Importa las bibliotecas y componentes necesarios
 import dynamic from "next/dynamic";
+import useI18n from '../../hooks/useI18n';
+import useLoading from "../../hooks/useLoading"
+// import useHasMounted from '../../hooks/useHasMounted'
 // import { useState, useEffect } from "react";
 import React, { useEffect, useState } from "react";
 import { Clientes } from "@prisma/client";
 import presets from "../../utils/globalPresets"
-import environment from "../../utils/environment"
 import fetchedHeaders from "../../models/encabezadoModel"
-import useLoading from "../../hooks/useLoading"
+// import useLoading from "../../hooks/useLoading"
 import useHasMounted from '../../hooks/useHasMounted'
-import useI18n from '../../hooks/useI18n'
+import environment from "../../utils/environment"
+import { execute } from "../api/helper/clientApi"
+
 // import BtnAppBar from "../../components/appBar"
 import Loading from "../../components/Loading"
 // import DataTable from "vComponents/dist/DataTable"
@@ -47,6 +51,7 @@ const columns = Object.keys(clientesColumns).map((key) => ({
 
 // Define el componente principal
 const ClientesPage = () => {
+
   const {
     clientes,
     createCliente,
@@ -56,6 +61,7 @@ const ClientesPage = () => {
     setSelectedCliente,
     updateCliente,
   } = useClientes();
+
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [clientToDelete, setClientToDelete] = useState(null);

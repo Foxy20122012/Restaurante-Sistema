@@ -45,102 +45,82 @@ function ProductForm() {
       formData.append("image", file);
     }
 
-    if (!params.id) {
-      const res = await axios.post("/api/products", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-    } else {
-      const res = await axios.put("/api/products/" + params.id, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        }
-      });
-    }
+    try {
+      if (!params.id) {
+        await axios.post("/api/products", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        await axios.put("/api/products/" + params.id, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
 
-    form.current.reset();
-    router.refresh();
-    router.push("/products");
+      // Si la solicitud Axios se completa correctamente, reseteamos el formulario y redirigimos.
+      form.current.reset();
+      await router.push("/products");  // Asegurémonos de esperar a que la redirección se complete antes de continuar.
+    } catch (error) {
+      console.error("Error al procesar la solicitud:", error);
+    }
   };
 
   return (
-    <div className="flex ">
-      <form
-        className="bg-white shadow-md rounded-md px-8 pt-6 pb-8 mb-4"
-        onSubmit={handleSubmit}
-        ref={form}
-      >
-        <label
-          htmlFor="name"
-          className="block text-gray-700 text-sm font-bold mb-2"
-        >
-          Modelo Del Vehiculo:
-        </label>
-        <input
-          name="name"
-          type="text"
-          placeholder="name"
-          onChange={handleChange}
-          value={product.name}
-          className="shadow appearance-none border rounded w-full py-2 px-3"
-          autoFocus
-        />
-
-        <label
-          htmlFor="price"
-          className="block text-gray-700 text-sm font-bold mb-2"
-        >
-          Numero De La Placa Del Vehiculo:
-        </label>
-        <input
-          name="price"
-          type="text"
-          placeholder="Numero de matricula"
-          onChange={handleChange}
-          value={product.price}
-          className="shadow appearance-none border rounded w-full py-2 px-3"
-        />
-
-        <label
-          htmlFor="name"
-          className="block text-gray-700 text-sm font-bold mb-2"
-        >
-          Descripción Del Vehiculo:
-        </label>
-        <textarea
-          name="description"
-          rows={3}
-          placeholder="description"
-          onChange={handleChange}
-          value={product.description}
-          className="shadow appearance-none border rounded w-full py-2 px-3"
-        />
-
-        <label
-          htmlFor="productImage"
-          className="block text-gray-700 text-sm font-bold mb-2"
-        >
-          Imagen Del Vehiculo:
-        </label>
-        <input
-          type="file"
-          className="shadow appearance-none border rounded w-full py-2 px-3 mb-2"
-          onChange={(e) => {
-            setFile(e.target.files[0]);
-          }}
-        />
-
-        {file && (
-          <img
-            className="w-96 object-contain mx-auto my-4"
-            src={URL.createObjectURL(file)}
-            alt=""
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <form className="bg-white p-8 rounded-lg shadow-md w-96" onSubmit={handleSubmit} ref={form}>
+        <div className="mb-4">
+          <label className="block text-sm font-bold mb-2 text-black" htmlFor="name">Modelo Del Vehiculo<span className="text-red-500">(*)</span>:</label>
+          <input
+            name="name"
+            type="text"
+            placeholder="Nombre"
+            onChange={handleChange}
+            value={product.name}
+            className="border p-2 w-full rounded"
+            autoFocus
           />
-        )}
+        </div>
 
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          {params.id ? "Update Product" : "Create Product"}
+        <div className="mb-4">
+          <label className="block text-sm font-bold mb-2 text-black" htmlFor="price">Numero De La Placa Del Vehiculo<span className="text-red-500">(*)</span>:</label>
+          <input
+            name="price"
+            type="text"
+            placeholder="Numero de matricula"
+            onChange={handleChange}
+            value={product.price}
+            className="border p-2 w-full rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-bold mb-2 text-black" htmlFor="description">Descripción Del Vehiculo<span className="text-red-500">(*)</span>:</label>
+          <textarea
+            name="description"
+            rows={3}
+            placeholder="Descripción"
+            onChange={handleChange}
+            value={product.description}
+            className="border p-2 w-full rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-bold mb-2 text-black" htmlFor="productImage">Imagen Del Vehiculo<span className="text-red-500">(*)</span>:</label>
+          <input
+            type="file"
+            className="border p-2 w-full rounded"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+        </div>
+
+        {file && <img className="w-full h-32 object-contain mb-4" src={URL.createObjectURL(file)} alt="" />}
+
+        <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+          {params.id ? "Actualizar Producto" : "Crear Producto"}
         </button>
       </form>
     </div>

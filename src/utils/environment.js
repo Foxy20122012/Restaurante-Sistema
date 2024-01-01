@@ -1,6 +1,6 @@
 import Cookie from 'js-cookie'
 import functions from 'v-functions'
-import { execute } from '../helper/clientApi'
+import { execute } from '../app/api/helper/clientApi'
 import presets from './globalPresets'
 
 /**
